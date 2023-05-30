@@ -1,7 +1,6 @@
-import express, { Application, Request, Response, urlencoded } from "express";
+import express, { Application, Request, Response } from "express";
 const app: Application = express();
 import cors from "cors";
-const port = 5000;
 
 app.use(cors());
 
