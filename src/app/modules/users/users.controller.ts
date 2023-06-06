@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import usersServices from "./users.services";
 
 // Controller function for creating a user
-const createUser = async (req: Request, res: Response) => {
+const createUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { user } = req.body; // Extract the user object from the request body
 
@@ -15,12 +15,9 @@ const createUser = async (req: Request, res: Response) => {
       message: "User created successfully",
       data: result,
     });
-  } catch (error) {
+  } catch (err) {
     // Send an error response if there was an error creating the user
-    res.status(400).json({
-      success: false,
-      message: "Failed to create user",
-    });
+    next(err); // went to global error handler
   }
 };
 
