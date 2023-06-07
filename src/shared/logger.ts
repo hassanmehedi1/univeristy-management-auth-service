@@ -1,15 +1,17 @@
+/* eslint-disable no-undef */
 import path from "path";
 import { createLogger, format, transports } from "winston";
 import DailyRotateFile from "winston-daily-rotate-file";
 const { combine, timestamp, label, printf } = format;
 
-// Custom format
+//Customm Log Format
+
 const myFormat = printf(({ level, message, label, timestamp }) => {
   const date = new Date(timestamp);
   const hour = date.getHours();
   const minutes = date.getMinutes();
   const seconds = date.getSeconds();
-  return `${date.toDateString()} ${hour}:${minutes}:${seconds} | [${label}] ${level.toUpperCase()}: ${message}`;
+  return `${date.toDateString()} ${hour}:${minutes}:${seconds} } [${label}] ${level}: ${message}`;
 });
 
 const logger = createLogger({
@@ -25,7 +27,7 @@ const logger = createLogger({
         "successes",
         "phu-%DATE%-success.log"
       ),
-      datePattern: "YYYY-MM-DD-HH",
+      datePattern: "YYYY-DD-MM-HH",
       zippedArchive: true,
       maxSize: "20m",
       maxFiles: "14d",
@@ -43,27 +45,15 @@ const errorLogger = createLogger({
         process.cwd(),
         "logs",
         "winston",
-        "successes",
+        "errors",
         "phu-%DATE%-error.log"
       ),
-      datePattern: "YYYY-MM-DD-HH",
+      datePattern: "YYYY-DD-MM-HH",
       zippedArchive: true,
       maxSize: "20m",
       maxFiles: "14d",
     }),
   ],
 });
-
-//
-// If we're not in production then log to the `console` with the format:
-// `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
-//
-if (process.env.NODE_ENV !== "production") {
-  logger.add(
-    new transports.Console({
-      format: format.simple(),
-    })
-  );
-}
 
 export { logger, errorLogger };

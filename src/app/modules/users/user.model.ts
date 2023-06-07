@@ -1,8 +1,5 @@
-import { Model, Schema, model } from "mongoose";
-import { IUser } from "./users.interface";
-
-// Define a custom type for the User model
-type UserModel = Model<IUser, object>;
+import { Schema, model } from "mongoose";
+import { IUser, UserModel } from "./user.interface";
 
 // Create a schema for the User model
 const userSchema = new Schema<IUser>(

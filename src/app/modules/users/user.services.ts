@@ -1,8 +1,8 @@
 import config from "../../../config";
 import ApiError from "../../../errors/ApiError";
-import { IUser } from "./users.interface";
-import { User } from "./users.model";
-import { generateUserId } from "./users.utils";
+import { IUser } from "./user.interface";
+import { User } from "./user.model";
+import { generateUserId } from "./user.utils";
 
 /**
  * Creates a user in the database.
@@ -31,6 +31,6 @@ const createUserToDB = async (user: IUser): Promise<IUser | null> => {
 };
 
 // Export the function as a module
-export default {
+export const userService = {
   createUserToDB,
 };

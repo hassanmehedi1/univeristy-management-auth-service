@@ -1,0 +1,4 @@
+Wed Jun 07 2023 16:6:23 | [UM] ERROR: Failed to connect Database querySrv ETIMEOUT _mongodb._tcp.cluster0.72nkqof.mongodb.net
+Wed Jun 07 2023 16:27:23 | [UM] ERROR: Failed to connect Database querySrv ECONNREFUSED _mongodb._tcp.cluster0.72nkqof.mongodb.net
+Wed Jun 07 2023 16:27:37 | [UM] ERROR: Failed to connect Database querySrv ECONNREFUSED _mongodb._tcp.cluster0.72nkqof.mongodb.net
+Wed Jun 07 2023 16:30:20 | [UM] ERROR: Failed to connect Database querySrv ETIMEOUT _mongodb._tcp.cluster0.72nkqof.mongodb.net

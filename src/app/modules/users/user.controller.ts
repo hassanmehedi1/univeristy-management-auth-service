@@ -1,13 +1,13 @@
-import { NextFunction, Request, Response } from "express";
-import usersServices from "./users.services";
+import { RequestHandler } from "express";
+import { userService } from "./user.services";
 
 // Controller function for creating a user
-const createUser = async (req: Request, res: Response, next: NextFunction) => {
+const createUser: RequestHandler = async (req, res, next) => {
   try {
     const { user } = req.body; // Extract the user object from the request body
 
     // Call the createUserToDB function from the usersServices module to create the user in the database
-    const result = await usersServices.createUserToDB(user);
+    const result = await userService.createUserToDB(user);
 
     // Send a success response with the created user data
     res.status(200).json({
@@ -22,6 +22,6 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 // Export the createUser function as the default export
-export default {
+export const UserController = {
   createUser,
 };

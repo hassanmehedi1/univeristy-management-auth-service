@@ -1,17 +1,4 @@
-/*
-let lastMainID = 11111; // Initialize with the last assigned main ID
-
-export const generateProgramID = (semester: number): string => {
-  const currentYear = new Date().getFullYear();
-  const mainID = (lastMainID++).toString(); // Increment the main ID for each new ID generation
-  const programID = `${currentYear
-    .toString()
-    .substr(-2)}-${mainID}-${semester.toString()}`;
-  return programID;
-};
-*/
-
-import { User } from "./users.model";
+import { User } from "./user.model";
 
 // pHero Func
 

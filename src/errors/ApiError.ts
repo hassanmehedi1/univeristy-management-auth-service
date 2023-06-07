@@ -3,13 +3,14 @@ class ApiError extends Error {
   statusCode: number;
 
   constructor(statusCode: number, message: string | undefined, stack = "") {
-    super(message);
-    this.statusCode = statusCode;
+    super(message); // Call the parent class constructor with the error message
+
+    this.statusCode = statusCode; // Store the status code in the instance property
 
     if (stack) {
-      this.stack = stack;
+      this.stack = stack; // If a stack trace is provided, assign it to the instance property
     } else {
-      Error.captureStackTrace(this, this.constructor);
+      Error.captureStackTrace(this, this.constructor); // Capture the stack trace for the error
     }
   }
 }
