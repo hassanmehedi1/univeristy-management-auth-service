@@ -1,0 +1,4 @@
+Tue Jun 13 2023 16:14:5 } [UM] error: Cannot read properties of undefined (reading 'page')
+Tue Jun 13 2023 16:19:1 } [UM] error: Cast to number failed for value "i" (type string) at path "year" for model "AcademicSemester"
+Tue Jun 13 2023 16:29:46 } [UM] error: Invalid Semester Code!
+Tue Jun 13 2023 16:32:29 } [UM] error: Invalid Semester Code!

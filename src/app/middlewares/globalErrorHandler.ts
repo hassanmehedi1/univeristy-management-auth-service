@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-console */
-import { ErrorRequestHandler } from "express";
+import { ErrorRequestHandler, NextFunction, Request, Response } from "express";
 import { Error } from "mongoose";
 import { ZodError } from "zod";
 import config from "../../config";
 import ApiError from "../../errors/ApiError";
+import handleCastError from "../../errors/handleCastErrror";
 import handleValidationError from "../../errors/handleValidationError";
 import handleZodError from "../../errors/handleZodError";
 import { IGenericErrorMessage } from "../../interfaces/error";
@@ -13,9 +14,10 @@ import { errorLogger } from "../../shared/logger";
 // Global error handler middleware
 const globalErrorHandler: ErrorRequestHandler = (
   err, // Error object received
-  req,
-  res,
-  next
+  req: Request,
+  res: Response,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  next: NextFunction
 ) => {
   config.env === "development"
     ? console.log("globalErrorHandler ~", err)
@@ -56,6 +58,11 @@ const globalErrorHandler: ErrorRequestHandler = (
         },
       ];
     }
+  } else if (err?.name === "CastError") {
+    const simplifiedError = handleCastError(err);
+    statusCode = simplifiedError.statusCode;
+    message = simplifiedError.message;
+    errorMessages = simplifiedError.errorMessages;
   }
   // Check if the error is a generic Error object
   else if (err instanceof Error) {
@@ -82,8 +89,6 @@ const globalErrorHandler: ErrorRequestHandler = (
     // eslint-disable-next-line no-undefined
     stack: config.env !== "production" ? err?.stack : undefined,
   });
-
-  next(); // Call the next middleware
 };
 
 export default globalErrorHandler;
