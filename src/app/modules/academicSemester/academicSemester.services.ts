@@ -12,7 +12,7 @@ import {
   IAcademicSemester,
   IAcademicSemesterFilters,
 } from "./academicSemester.interface";
-import { AcademicSemester } from "./academicSemesterModel";
+import { AcademicSemester } from "./academicSemester.model";
 
 const createSemesterToDB = async (
   payload: IAcademicSemester

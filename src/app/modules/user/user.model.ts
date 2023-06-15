@@ -22,6 +22,9 @@ const userSchema = new Schema<IUser>(
   {
     // Add additional options to the schema
     timestamps: true,
+    toJSON: {
+      virtuals: true,
+    },
   }
 );
 
