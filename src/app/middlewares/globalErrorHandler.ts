@@ -9,7 +9,6 @@ import handleCastError from "../../errors/handleCastErrror";
 import handleValidationError from "../../errors/handleValidationError";
 import handleZodError from "../../errors/handleZodError";
 import { IGenericErrorMessage } from "../../interfaces/error";
-import { errorLogger } from "../../shared/logger";
 
 // Global error handler middleware
 const globalErrorHandler: ErrorRequestHandler = (
@@ -21,7 +20,7 @@ const globalErrorHandler: ErrorRequestHandler = (
 ) => {
   config.env === "development"
     ? console.log("globalErrorHandler ~", err)
-    : errorLogger.error("globalErrorHandler ~", err);
+    : console.log("globalErrorHandler ~", err);
 
   let statusCode = 500; // Default status code for internal server error
   let message = "Something Went Wrong"; // Default error message
