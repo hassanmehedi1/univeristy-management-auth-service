@@ -12,7 +12,7 @@ const getAllStudents = catchAsync(async (req: Request, res: Response) => {
   const filters = pick(req.query, studentFilterableFields);
   const paginationOptions = pick(req.query, paginationFields);
 
-  const result = await StudentService.getAllStudents(
+  const result = await StudentService.getAllStudentsFromDB(
     filters,
     paginationOptions
   );
@@ -29,7 +29,7 @@ const getAllStudents = catchAsync(async (req: Request, res: Response) => {
 const getSingleStudent = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
 
-  const result = await StudentService.getSingleStudent(id);
+  const result = await StudentService.getSingleStudentFromDB(id);
 
   sendResponse<IStudent>(res, {
     statusCode: httpStatus.OK,
@@ -43,7 +43,7 @@ const updateStudent = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
   const updatedData = req.body;
 
-  const result = await StudentService.updateStudent(id, updatedData);
+  const result = await StudentService.updateStudentFromDB(id, updatedData);
 
   sendResponse<IStudent>(res, {
     statusCode: httpStatus.OK,
@@ -55,7 +55,7 @@ const updateStudent = catchAsync(async (req: Request, res: Response) => {
 const deleteStudent = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
 
-  const result = await StudentService.deleteStudent(id);
+  const result = await StudentService.deleteStudentFromDB(id);
 
   sendResponse<IStudent>(res, {
     statusCode: httpStatus.OK,

@@ -9,7 +9,7 @@ import { studentSearchableFields } from "./student.constants";
 import { IStudent, IStudentFilters } from "./student.interface";
 import { Student } from "./student.model";
 
-const getAllStudents = async (
+const getAllStudentsFromDB = async (
   filters: IStudentFilters,
   paginationOptions: IPaginationOptions
 ): Promise<IGenericResponse<IStudent[]>> => {
@@ -71,7 +71,7 @@ const getAllStudents = async (
   };
 };
 
-const getSingleStudent = async (id: string): Promise<IStudent | null> => {
+const getSingleStudentFromDB = async (id: string): Promise<IStudent | null> => {
   const result = await Student.findById(id)
     .populate("academicSemester")
     .populate("academicDepartment")
@@ -80,7 +80,7 @@ const getSingleStudent = async (id: string): Promise<IStudent | null> => {
   return result;
 };
 
-const updateStudent = async (
+const updateStudentFromDB = async (
   id: string,
   payload: Partial<IStudent>
 ): Promise<IStudent | null> => {
@@ -124,7 +124,7 @@ const updateStudent = async (
   return result;
 };
 
-const deleteStudent = async (id: string): Promise<IStudent | null> => {
+const deleteStudentFromDB = async (id: string): Promise<IStudent | null> => {
   const result = await Student.findByIdAndDelete(id)
     .populate("academicSemester")
     .populate("academicDepartment")
@@ -134,8 +134,8 @@ const deleteStudent = async (id: string): Promise<IStudent | null> => {
 };
 
 export const StudentService = {
-  getAllStudents,
-  getSingleStudent,
-  updateStudent,
-  deleteStudent,
+  getAllStudentsFromDB,
+  getSingleStudentFromDB,
+  updateStudentFromDB,
+  deleteStudentFromDB,
 };
