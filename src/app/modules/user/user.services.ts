@@ -113,6 +113,7 @@ const createFacultyToDB = async (
   if (!user.password) {
     user.password = config.default_faculty_pass as string;
   }
+
   // set role
   user.role = "faculty";
 
@@ -174,6 +175,7 @@ const createAdminToDB = async (
   if (!user.password) {
     user.password = config.default_admin_pass as string;
   }
+
   // set role
   user.role = "admin";
 

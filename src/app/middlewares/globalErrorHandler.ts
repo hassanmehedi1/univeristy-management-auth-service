@@ -5,7 +5,7 @@ import { Error } from "mongoose";
 import { ZodError } from "zod";
 import config from "../../config";
 import ApiError from "../../errors/ApiError";
-import handleCastError from "../../errors/handleCastErrror";
+import handleCastError from "../../errors/handleCastError";
 import handleValidationError from "../../errors/handleValidationError";
 import handleZodError from "../../errors/handleZodError";
 import { IGenericErrorMessage } from "../../interfaces/error";
@@ -48,16 +48,14 @@ const globalErrorHandler: ErrorRequestHandler = (
     statusCode = err?.statusCode;
     message = err?.message;
 
-    // Check if the ApiError has a message
-    if (err?.message) {
-      // Add the error message to the error messages array
-      errorMessages = [
-        {
-          path: "",
-          message: err?.message,
-        },
-      ];
-    }
+    errorMessages = err?.message
+      ? [
+          {
+            path: "",
+            message: err?.message,
+          },
+        ]
+      : [];
   } else if (err?.name === "CastError") {
     const simplifiedError = handleCastError(err);
     statusCode = simplifiedError.statusCode;
@@ -66,19 +64,15 @@ const globalErrorHandler: ErrorRequestHandler = (
   }
   // Check if the error is a generic Error object
   else if (err instanceof Error) {
-    // Update error message from the Error object
     message = err?.message;
-
-    // Check if the Error has a message
-    if (err?.message) {
-      // Add the error message to the error messages array
-      errorMessages = [
-        {
-          path: "",
-          message: err?.message,
-        },
-      ];
-    }
+    errorMessages = err?.message
+      ? [
+          {
+            path: "",
+            message: err?.message,
+          },
+        ]
+      : [];
   }
 
   // Send the response with the appropriate status code, error message, error messages array, and stack trace if not in production

@@ -1,4 +1,6 @@
+import bcrypt from "bcrypt";
 import { Schema, model } from "mongoose";
+import config from "../../../config";
 import { IUser, UserModel } from "./user.interface";
 
 // Create a schema for the User model
@@ -39,6 +41,17 @@ const userSchema = new Schema<IUser>(
     },
   }
 );
+
+// password hashing pre hook
+userSchema.pre("save", async function (next) {
+  // hashing user password logic
+  this.password = await bcrypt.hash(
+    this.password,
+    Number(config.bcrypt_salt_rounds)
+  );
+
+  next();
+});
 
 // Create and export the User model using the schema
 export const User = model<IUser, UserModel>("User", userSchema);
