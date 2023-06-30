@@ -1,10 +1,10 @@
 import bcrypt from "bcrypt";
 import { Schema, model } from "mongoose";
 import config from "../../../config";
-import { IUser, UserModel } from "./user.interface";
+import { IUser, IUserMethods, UserModel } from "./user.interface";
 
 // Create a schema for the User model
-const userSchema = new Schema<IUser>(
+const userSchema = new Schema<IUser, Record<string, never>, IUserMethods>(
   {
     // Define the properties and their types
     id: {
@@ -19,6 +19,11 @@ const userSchema = new Schema<IUser>(
     password: {
       type: String,
       required: true,
+      select: 0,
+    },
+    needsPasswordChange: {
+      type: Boolean,
+      default: true,
     },
     student: {
       type: Schema.Types.ObjectId,
@@ -41,6 +46,27 @@ const userSchema = new Schema<IUser>(
     },
   }
 );
+
+// instance methods
+userSchema.methods.isUserExist = async function (
+  id: string
+): Promise<Partial<IUser> | null> {
+  const user = await User.findOne(
+    { id },
+    { id: 1, password: 1, needsPasswordChange: 1, role: 1 }
+  );
+
+  return user;
+};
+
+userSchema.methods.isPasswordMatched = async function (
+  givenPassword: string,
+  savedPassword: string
+): Promise<boolean> {
+  const isMatched = await bcrypt.compare(givenPassword, savedPassword);
+
+  return isMatched;
+};
 
 // password hashing pre hook
 userSchema.pre("save", async function (next) {
