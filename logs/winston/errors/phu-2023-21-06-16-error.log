@@ -1,3 +1,0 @@
-Wed Jun 21 2023 16:43:54 } [UM] error: globalErrorHandler ~ E11000 duplicate key error collection: university-management.faculties index: email_1 dup key: { email: "faculty@gmail.com" }
-Wed Jun 21 2023 16:44:51 } [UM] error: globalErrorHandler ~ E11000 duplicate key error collection: university-management.faculties index: email_1 dup key: { email: "faculty@gmail.com" }
-Wed Jun 21 2023 16:47:15 } [UM] error: globalErrorHandler ~ E11000 duplicate key error collection: university-management.faculties index: contactNo_1 dup key: { contactNo: "user_f_5" }
